@@ -1,0 +1,93 @@
+#!/bin/sh
+
+# Copyright 2009-2010  Erik Hanson, Minneapolis, MN, USA
+# Copyright 2011, 2015  Patrick J. Volkerding, Sebeka, MN, USA
+# Copyright 2018  Zak B. Elep, Makati, Manila, Philippines
+# All rights reserved.
+#
+# Redistribution and use of this script, with or without modification, is
+# permitted provided that the following conditions are met:
+#
+# 1. Redistributions of this script must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+# EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+PKGNAM=chefdk
+RELEASE=${RELEASE:-2.4.17-1}
+
+# Allow $ARCH to be preset before running the script.  This is useful in the
+# case where someone is running a 32-bit chroot environment under an x86_64
+# kernel:
+ARCH="x86_64"
+DEBARCH="amd64"
+LIBDIRSUFFIX="64"
+
+# Get the version from the Debian/Ubuntu .deb (thanks to Fred Richards):
+VERSION=$(ar p chefdk_${RELEASE}_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
+BUILD=${BUILD:-1zakame}
+
+
+if [ ! $UID = 0 ]; then
+  cat << EOF
+
+This script must be run as root.
+
+EOF
+  exit 1
+fi
+
+if ! /bin/ls chefdk_*.deb 1> /dev/null 2> /dev/null ; then
+  cat << EOF
+
+This is a script to repackage a chefdk .deb package
+for Slackware.  Run this script in the same directory as this
+binary package:
+
+  chefdk_${RELEASE}_${DEBARCH}.deb
+
+This will create a Slackware .txz package.  Install it with installpkg
+or use upgradepkg to upgrade from a previous version.
+
+EOF
+  exit 1
+fi
+
+CWD=$(pwd)
+TMP=${TMP:-/tmp}
+PKG=$TMP/package-$PKGNAM
+OUTPUT=${OUTPUT:-/tmp}
+
+rm -rf $PKG
+mkdir -p $TMP $PKG $OUTPUT
+cd $PKG
+ar p $CWD/chefdk_${RELEASE}_${DEBARCH}.deb data.tar.gz | tar xzv || exit 1
+chown -R root:root .
+chmod -R u+w,go+r-w,a-s .
+
+# Link binaries in /opt/chefdk/bin to /usr/bin:
+binaries="berks chef chef-apply chef-shell chef-solo chef-vault cookstyle dco delivery foodcritic inspec kitchen knife ohai push-apply pushy-client pushy-service-manager chef-client"
+mkdir -p $PKG/usr/bin
+for binary in $binaries; do
+  ( cd $PKG/usr/bin ; ln -sf ../../opt/chefdk/bin/$binary $binary )
+done
+
+# Make sure top-level perms are correct:
+chmod 0755 .
+
+mkdir -p $PKG/install
+cat $CWD/slack-desc > $PKG/install/slack-desc
+
+cd $PKG
+/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+

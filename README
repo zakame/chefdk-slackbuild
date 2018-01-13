@@ -1,0 +1,43 @@
+chefdk (Chef Development Kit)
+-----------------------------
+
+(Adapted from Pat Volkerding's original google-chrome SlackBuild.)
+
+Here's how to install chefdk on Slackware.
+
+
+First, go to the chefdk site:
+
+https://downloads.chef.io/chefdk
+
+Click the download button for the Debian 8 release.
+
+
+Read and accept the license terms, and download the .deb package.
+
+
+Then, with the chefdk_$RELEASE_amd64.deb package in the same directory
+as the chefdk.SlackBuild script, run the script as root to
+convert the .deb to a Slackware .txz:
+
+RELEASE=2.4.17-1 ./chefdk.SlackBuild
+
+Change the RELEASE value to the same release number as the package as
+needed.
+
+This will produce a Slackware compatible .txz package.  The exact
+version number in the package filename will depend on the version
+of Google Chrome found in the .deb package, but it will be something
+like:  chefdk-2.4.17-x86_64-1zakame.txz
+
+You'll find the output package in the /tmp directory.
+
+
+Then, install the package (again as root):
+
+cd /tmp
+upgradepkg --install-new chefdk-2.4.17-x86_64-1zakame.txz
+
+
+Enjoy!  :-)
+
