@@ -38,6 +38,13 @@ Then, install the package (again as root):
 cd /tmp
 upgradepkg --install-new chefdk-2.5.3-x86_64-1zakame.txz
 
+Do note that if you have an inspec package installed, this chefdk
+package will overwrite the /usr/bin/inspec symlink installed by the
+inspec package.
+
+It is recommended to install this chefdk package first, then the inspec
+package, as the latter ships inspec 2.x while chefdk ships 1.51.x.
+
 
 Enjoy!  :-)
 
