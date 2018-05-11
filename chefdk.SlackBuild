@@ -68,6 +68,8 @@ TMP=${TMP:-/tmp}
 PKG=$TMP/package-$PKGNAM
 OUTPUT=${OUTPUT:-/tmp}
 
+/bin/sha256sum -c chefdk.checksums || exit 1
+
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
