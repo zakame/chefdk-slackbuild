@@ -42,8 +42,8 @@ Do note that if you have an inspec package installed, this chefdk
 package will overwrite the /usr/bin/inspec symlink installed by the
 inspec package.
 
-It is recommended to install this chefdk package first, then the inspec
-package, as the latter ships inspec 2.x while chefdk ships 1.51.x.
+chefdk 3 now ships with inspec 2, so the standalone inspec package can
+now be removed if previously installed.
 
 
 Enjoy!  :-)
