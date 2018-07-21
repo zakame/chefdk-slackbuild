@@ -15,5 +15,5 @@ chefdk: ChefSpec, Cookstyle, and Foodcritic; Inspec; and everything else
 chefdk: needed to author cookbooks and upload them to the Chef server.
 chefdk:
 chefdk:
-chefdk: Homepage:  https://docs.chef.io/workstation.html
+chefdk: Homepage:  https://docs.chef.io/about_chefdk.html
 chefdk:
