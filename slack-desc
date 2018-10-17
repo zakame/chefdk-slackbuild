@@ -5,15 +5,15 @@
 # make exactly 11 lines for the formatting to be correct.  It's also
 # customary to leave one space after the ':'.
 
-      |-----handy-ruler----------------------------------------------------|
-chefdk: chefdk (Chef Development Kit)
-chefdk:
-chefdk: The Chef Development Kit is a package that contains everything that
-chefdk: is needed to start using Chef, including chef-client and ohai; chef
-chefdk: and knife command line tools; testing tools such as Test Kitchen,
-chefdk: ChefSpec, Cookstyle, and Foodcritic; Inspec; and everything else
-chefdk: needed to author cookbooks and upload them to the Chef server.
-chefdk:
-chefdk:
-chefdk: Homepage:  https://docs.chef.io/about_chefdk.html
-chefdk:
+                |-----handy-ruler----------------------------------------------------|
+chef-workstation: chef-workstation (Chef Workstation)
+chef-workstation:
+chef-workstation: The Chef Workstation is the successor to the Chef Development Kit,
+chef-workstation: a package that contains everything that is needed to start using
+chef-workstation: Chef, including chef-client and ohai; chef and knife command line
+chef-workstation: tools; testing tools such as Test Kitchen, ChefSpec, Cookstyle,
+chef-workstation: and Foodcritic; Inspec; chef-run for ad-hoc remote execution,
+chef-workstation: and everything else needed to author cookbooks and upload them to
+chef-workstation: the Chef server.
+chef-workstation:
+chef-workstation: Homepage:  https://www.chef.sh
