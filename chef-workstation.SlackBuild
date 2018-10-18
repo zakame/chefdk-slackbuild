@@ -24,7 +24,7 @@
 
 
 PKGNAM=chef-workstation
-RELEASE=${RELEASE:-0.1.162-1}
+RELEASE=${RELEASE:-0.2.16-1}
 
 # Allow $ARCH to be preset before running the script.  This is useful in the
 # case where someone is running a 32-bit chroot environment under an x86_64
@@ -73,7 +73,7 @@ OUTPUT=${OUTPUT:-/tmp}
 rm -rf $PKG
 mkdir -p $TMP $PKG $OUTPUT
 cd $PKG
-ar p $CWD/chef-workstation_${RELEASE}_${DEBARCH}.deb data.tar.gz | tar xzv || exit 1
+ar p $CWD/chef-workstation_${RELEASE}_${DEBARCH}.deb data.tar.xz | tar xJv || exit 1
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
@@ -83,6 +83,10 @@ mkdir -p $PKG/usr/bin
 for binary in $binaries; do
   ( cd $PKG/usr/bin ; ln -sf ../../opt/chef-workstation/bin/$binary $binary )
 done
+
+# Link experimental chef-workstation-app to /usr/bin:
+cwa_app_path="$PKG/opt/chef-workstation/components/chef-workstation-app/chef-workstation-app"
+ln -sf $cwa_app_path $PREFIX/bin
 
 # Make sure top-level perms are correct:
 chmod 0755 .
