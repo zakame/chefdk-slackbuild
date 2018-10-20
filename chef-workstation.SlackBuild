@@ -85,8 +85,7 @@ for binary in $binaries; do
 done
 
 # Link experimental chef-workstation-app to /usr/bin:
-cwa_app_path="$PKG/opt/chef-workstation/components/chef-workstation-app/chef-workstation-app"
-ln -sf $cwa_app_path $PREFIX/bin
+( cd $PKG/usr/bin ; ln -sf ../../opt/chef-workstation/components/chef-workstation-app/chef-workstation-app chef-workstation-app )
 
 # Make sure top-level perms are correct:
 chmod 0755 .
