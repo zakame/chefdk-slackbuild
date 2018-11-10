@@ -26,9 +26,9 @@ Change the RELEASE value to the same release number as the package as
 needed.
 
 This will produce a Slackware compatible .txz package.  The exact
-version number in the package filename will depend on the version
-of Google Chrome found in the .deb package, but it will be something
-like:  chef-workstation-0.2.21-x86_64-1zakame.txz
+version number in the package filename will depend on the version of
+Chef Workstation in the .deb package, but it will be something like:
+chef-workstation-0.2.21-x86_64-1zakame.txz
 
 You'll find the output package in the /tmp directory.
 
