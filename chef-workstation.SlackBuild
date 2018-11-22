@@ -31,14 +31,13 @@ RELEASE=${RELEASE:-0.2.29-1}
 # kernel:
 ARCH="x86_64"
 DEBARCH="amd64"
-LIBDIRSUFFIX="64"
 
 # Get the version from the Debian/Ubuntu .deb (thanks to Fred Richards):
-VERSION=$(ar p chef-workstation_${RELEASE}_${DEBARCH}.deb control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
+VERSION=$(ar p "chef-workstation_${RELEASE}_${DEBARCH}.deb" control.tar.gz 2> /dev/null | tar zxO ./control 2> /dev/null | grep Version | awk '{print $2}' | cut -d- -f1)
 BUILD=${BUILD:-1zakame}
 
 
-if [ ! $UID = 0 ]; then
+if [ ! "$(id -u)" = 0 ]; then
   cat << EOF
 
 This script must be run as root.
@@ -70,29 +69,29 @@ OUTPUT=${OUTPUT:-/tmp}
 
 /bin/sha256sum -c chef-workstation.checksums || exit 1
 
-rm -rf $PKG
-mkdir -p $TMP $PKG $OUTPUT
-cd $PKG
-ar p $CWD/chef-workstation_${RELEASE}_${DEBARCH}.deb data.tar.xz | tar xJv || exit 1
+rm -rf "$PKG"
+mkdir -p "$TMP" "$PKG" "$OUTPUT"
+cd "$PKG" || exit 1
+ar p "$CWD/chef-workstation_${RELEASE}_${DEBARCH}.deb" data.tar.xz | tar xJv || exit 1
 chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
 # Link binaries in /opt/chef-workstation/bin to /usr/bin:
 binaries="berks chef chef-apply chef-client chef-resource-inspector chef-run chef-shell chef-solo chef-vault cookstyle dco delivery foodcritic inspec kitchen knife ohai print_execution_environment push-apply pushy-client pushy-service-manager"
-mkdir -p $PKG/usr/bin
+mkdir -p "$PKG/usr/bin"
 for binary in $binaries; do
-  ( cd $PKG/usr/bin ; ln -sf ../../opt/chef-workstation/bin/$binary $binary )
+  ( cd "$PKG/usr/bin" || exit 1 ; ln -sf "../../opt/chef-workstation/bin/$binary" "$binary" )
 done
 
 # Link experimental chef-workstation-app to /usr/bin:
-( cd $PKG/usr/bin ; ln -sf ../../opt/chef-workstation/components/chef-workstation-app/chef-workstation-app chef-workstation-app )
+( cd "$PKG/usr/bin" || exit 1 ; ln -sf ../../opt/chef-workstation/components/chef-workstation-app/chef-workstation-app chef-workstation-app )
 
 # Make sure top-level perms are correct:
 chmod 0755 .
 
-mkdir -p $PKG/install
-cat $CWD/slack-desc > $PKG/install/slack-desc
+mkdir -p "$PKG/install"
+cat "$CWD/slack-desc" > "$PKG/install/slack-desc"
 
-cd $PKG
-/sbin/makepkg -l y -c n $OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD.txz
+cd "$PKG" || exit 1
+/sbin/makepkg -l y -c n "$OUTPUT/$PKGNAM-$VERSION-$ARCH-$BUILD.txz"
 
