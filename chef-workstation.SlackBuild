@@ -24,7 +24,7 @@
 
 
 PKGNAM=chef-workstation
-RELEASE=${RELEASE:-0.2.43-1}
+RELEASE=${RELEASE:-0.2.48-1}
 
 # Allow $ARCH to be preset before running the script.  This is useful in the
 # case where someone is running a 32-bit chroot environment under an x86_64
