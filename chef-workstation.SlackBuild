@@ -2,7 +2,7 @@
 
 # Copyright 2009-2010  Erik Hanson, Minneapolis, MN, USA
 # Copyright 2011, 2015  Patrick J. Volkerding, Sebeka, MN, USA
-# Copyright 2018-2019  Zak B. Elep, Makati, Manila, Philippines
+# Copyright 2018-2020  Zak B. Elep, Makati, Manila, Philippines
 # All rights reserved.
 #
 # Redistribution and use of this script, with or without modification, is
@@ -24,7 +24,7 @@
 
 
 PKGNAM=chef-workstation
-RELEASE=${RELEASE:-0.13.35-1}
+RELEASE=${RELEASE:-0.15.6-1}
 
 # Allow $ARCH to be preset before running the script.  This is useful in the
 # case where someone is running a 32-bit chroot environment under an x86_64
