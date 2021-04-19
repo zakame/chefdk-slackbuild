@@ -8,9 +8,9 @@ Here's how to install chef-workstation on Slackware.
 
 First, go to the chef-workstation site:
 
-https://downloads.chef.io/chef-workstation
+https://downloads.chef.io/tools/workstation
 
-Click the download button for the Ubuntu 16.04 release.
+Click the download button for the Ubuntu 20.04 release.
 
 
 Read and accept the license terms, and download the .deb package.
