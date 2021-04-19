@@ -11,9 +11,9 @@ chef-workstation:
 chef-workstation: The Chef Workstation is the successor to the Chef Development Kit,
 chef-workstation: a package that contains everything that is needed to start using
 chef-workstation: Chef, including chef-client and ohai; chef and knife command line
-chef-workstation: tools; testing tools such as Test Kitchen, ChefSpec, Cookstyle,
-chef-workstation: and Foodcritic; Inspec; chef-run for ad-hoc remote execution,
-chef-workstation: and everything else needed to author cookbooks and upload them to
-chef-workstation: the Chef server.
+chef-workstation: tools; testing tools such as Test Kitchen, Cookstyle, Foodcritic;
+chef-workstation: Inspec; chef-run for ad-hoc remote execution, and everything else
+chef-workstation: needed to author cookbooks and upload them to the Chef server.
 chef-workstation:
-chef-workstation: Homepage:  https://www.chef.sh
+chef-workstation: Homepage:  https://community.chef.io/tools/chef-workstation/
+chef-workstation:
