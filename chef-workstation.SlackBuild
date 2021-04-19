@@ -24,7 +24,7 @@
 
 
 PKGNAM=chef-workstation
-RELEASE=${RELEASE:-21.2.303-1}
+RELEASE=${RELEASE:-21.4.365-1}
 
 # Allow $ARCH to be preset before running the script.  This is useful in the
 # case where someone is running a 32-bit chroot environment under an x86_64
@@ -77,7 +77,7 @@ chown -R root:root .
 chmod -R u+w,go+r-w,a-s .
 
 # Link binaries in /opt/chef-workstation/bin to /usr/bin:
-binaries="berks chef chef-analyze chef-apply chef-automate-collect chef-cli chef-client chef-resource-inspector chef-run chef-service-manager chef-shell chef-solo chef-vault chef-windows-service cookstyle delivery foodcritic hab inspec kitchen knife ohai stove"
+binaries="berks chef chef-analyze chef-apply chef-automate-collect chef-cli chef-client chef-resource-inspector chef-run chef-service-manager chef-shell chef-solo chef-vault chef-windows-service chef-zero cookstyle delivery fauxhai foodcritic hab inspec kitchen knife mixlib-install ohai stove"
 mkdir -p "$PKG/usr/bin"
 for binary in $binaries; do
   ( cd "$PKG/usr/bin" || exit 1 ; ln -sf "../../opt/chef-workstation/bin/$binary" "$binary" )
